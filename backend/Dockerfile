@@ -1,4 +1,4 @@
-FROM ageitgey/face_recognition:latest
+FROM milesial/face_recognition:latest
 
 WORKDIR /app
 
