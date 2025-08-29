@@ -5,7 +5,6 @@
       <h1 class="text-3xl font-bold mb-8 text-gray-800">ลงเวลาทำงาน</h1>
       <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md space-y-8 transform hover:scale-102 transition duration-300 border border-gray-200">
         
-        <!-- เลือก Action -->
         <div>
           <label class="block mb-2 font-semibold text-gray-700">Action</label>
           <select v-model="action" class="w-full border rounded p-3 focus:ring-2 focus:ring-blue-400">
@@ -14,7 +13,6 @@
           </select>
         </div>
 
-        <!-- เลือก TimeType -->
         <div>
           <label class="block mb-2 font-semibold text-gray-700">เลือกเวลา</label>
           <select v-model="timeType" class="w-full border rounded p-3 focus:ring-2 focus:ring-blue-400 transition bg-white">
@@ -25,7 +23,6 @@
           </select>
         </div>
 
-        <!-- เลือก Location -->
         <div>
           <label class="block mb-2 font-semibold text-gray-700">เลือกสถานที่</label>
           <select v-model="locationId" class="w-full border rounded p-3 focus:ring-2 focus:ring-blue-400 transition bg-white">
@@ -33,7 +30,6 @@
           </select>
         </div>
 
-        <!-- กล้อง + Canvas -->
         <div class="flex flex-col items-center space-y-4">
           <div class="w-48 h-48 overflow-hidden rounded-full border-4 border-blue-200 shadow-lg relative">
             <video ref="video" autoplay class="w-full h-full object-cover"></video>
@@ -41,12 +37,10 @@
           </div>
         </div>
 
-        <!-- ปุ่มลงเวลา + สแกนหน้า -->
         <button @click="checkInWithFace" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white py-3 rounded-lg font-semibold shadow-lg transition transform hover:scale-105">
           สแกนหน้า & ลงเวลา
         </button>
 
-        <!-- ข้อความแจ้งผล -->
         <p v-if="message" class="mt-3 text-center text-red-500 font-medium">{{ message }}</p>
       </div>
     </div>
@@ -69,18 +63,15 @@ const video = ref(null)
 const canvas = ref(null)
 
 onMounted(() => {
-  // ดึงสถานที่
   axios.get('http://localhost:8000/api/locations/', { headers: { Authorization: `Token ${token}` }})
     .then(res => locations.value = res.data)
     .catch(() => message.value = 'ไม่สามารถโหลดสถานที่ได้')
 
-  // เปิดกล้อง
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => { video.value.srcObject = stream })
     .catch(() => message.value = 'ไม่สามารถเข้าถึงกล้องได้')
 })
 
-// ฟังก์ชันถ่ายรูปจาก Video
 const takeSnapshot = () => {
   const ctx = canvas.value.getContext('2d')
   canvas.value.width = video.value.videoWidth
@@ -91,7 +82,6 @@ const takeSnapshot = () => {
   })
 }
 
-// ฟังก์ชันสแกนหน้า + ลงเวลา
 const checkInWithFace = async () => {
   if (!locationId.value) { message.value = 'กรุณาเลือกสถานที่'; return }
 
@@ -99,7 +89,6 @@ const checkInWithFace = async () => {
     try {
       message.value = 'กำลังสแกนใบหน้า...'
 
-      // 1️⃣ ถ่ายรูปและส่งไป backend
       const blob = await takeSnapshot()
       const faceForm = new FormData()
       faceForm.append('image', blob)
@@ -113,7 +102,6 @@ const checkInWithFace = async () => {
         return
       }
 
-      // 2️⃣ ส่ง check-in พร้อมระบุ face_verified = true
       await axios.post('http://localhost:8000/api/check-in/', {
         time_type: timeType.value,
         location: locationId.value,

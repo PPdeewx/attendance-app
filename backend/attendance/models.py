@@ -35,7 +35,7 @@ class AttendanceLog(models.Model):
 
 class FaceProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    face_encoding = models.BinaryField()  # เก็บ numpy array ที่ pickle มาแล้ว
+    face_encoding = models.BinaryField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
