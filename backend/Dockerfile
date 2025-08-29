@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip install --no-cache-dir dlib==19.24.2 face_recognition==1.3.0 numpy<2 pillow<10
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
