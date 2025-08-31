@@ -33,7 +33,7 @@ const error = ref('')
 const router = useRouter()
 
 const login = () => {
-  axios.post('http://localhost:8000/api/login/', {
+  axios.post('https://attendance-backend-v67b.onrender.com/api/login/', {
     username: username.value,
     password: password.value
   }).then(res => {

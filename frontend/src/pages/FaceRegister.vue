@@ -54,7 +54,7 @@ const registerFace = async () => {
     const form = new FormData()
     form.append('image', blob)
 
-    const res = await axios.post('http://localhost:8000/api/face-register/', form, {
+    const res = await axios.post('https://attendance-backend-v67b.onrender.com/api/face-register/', form, {
       headers: { Authorization: `Token ${token}`, 'Content-Type': 'multipart/form-data' }
     })
 

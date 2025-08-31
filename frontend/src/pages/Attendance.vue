@@ -63,7 +63,7 @@ const video = ref(null)
 const canvas = ref(null)
 
 onMounted(() => {
-  axios.get('http://localhost:8000/api/locations/', { headers: { Authorization: `Token ${token}` }})
+  axios.get('https://attendance-backend-v67b.onrender.com/api/locations/', { headers: { Authorization: `Token ${token}` }})
     .then(res => locations.value = res.data)
     .catch(() => message.value = 'ไม่สามารถโหลดสถานที่ได้')
 
@@ -93,7 +93,7 @@ const checkInWithFace = async () => {
       const faceForm = new FormData()
       faceForm.append('image', blob)
 
-      const faceRes = await axios.post('http://localhost:8000/api/face-checkin/', faceForm, {
+      const faceRes = await axios.post('https://attendance-backend-v67b.onrender.com/api/face-checkin/', faceForm, {
         headers: { Authorization: `Token ${token}`, 'Content-Type': 'multipart/form-data' }
       })
 
@@ -102,7 +102,7 @@ const checkInWithFace = async () => {
         return
       }
 
-      await axios.post('http://localhost:8000/api/check-in/', {
+      await axios.post('https://attendance-backend-v67b.onrender.com/api/check-in/', {
         time_type: timeType.value,
         location: locationId.value,
         latitude: pos.coords.latitude,

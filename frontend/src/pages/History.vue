@@ -35,7 +35,7 @@ const logs = ref([])
 const token = localStorage.getItem('token')
 
 onMounted(() => {
-  axios.get('http://localhost:8000/api/check-in/', { headers: { Authorization: `Token ${token}` }})
+  axios.get('https://attendance-backend-v67b.onrender.com/api/check-in/', { headers: { Authorization: `Token ${token}` }})
     .then(res => logs.value = res.data)
 })
 </script>
