@@ -4,6 +4,10 @@ djangorestframework-simplejwt
 psycopg2-binary
 django-cors-headers
 
+dj-database-url
+gunicorn
+whitenoise
+
 numpy==1.26.4
 pillow==9.5.0
 dlib-bin==19.24.2
