@@ -3,5 +3,4 @@ djangorestframework
 djangorestframework-simplejwt
 psycopg2-binary
 django-cors-headers
-numpy==1.26.4
-pillow==9.5.0
+face_recognition
